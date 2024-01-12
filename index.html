@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Todoリスト</h1>
+    <input type="text" placeholder="ここにタスクを入力" name="addTodo">
+    <button type="button" id="addBtn">追加</button>
+    <div id="TodoList"></div>
+    <script>
+        const lists = [];
+
+        function get_value () {
+            const todo = $('input[name="addTodo"]').val();
+            console.log(todo);  
+            lists.push(todo); 
+            show_todos();  
+            $('input[name="addTodo"]').val('');
+        }
+
+        function show_todos () {
+            const List = $('#TodoList')
+            List.empty();
+            $.each(lists, function(index,value) {
+                List.append(`<div>${value} <button onclick="delete_value(${index})">削除</button></div>`);
+            });
+        }
+
+        function delete_value(index) {
+            lists.splice(index, 1); 
+            show_todos(); 
+        } 
+
+        $('#addBtn').on('click', get_value);
+    </script>   
+</body>
+</html>
